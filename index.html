@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Liel's Phone</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Lock Screen -->
+    <div id="lock-screen" class="screen active">
+        <div class="status-bar">
+            <span class="time-display">1:28</span>
+            <div class="status-icons">
+                <i class="fa-solid fa-signal"></i>
+                <i class="fa-solid fa-wifi"></i>
+                <i class="fa-solid fa-battery-full"></i>
+            </div>
+        </div>
+        <div class="lock-content">
+            <div class="lock-clock">
+                <h1 id="current-time">1:28</h1>
+                <p id="current-date">Saturday, November 7</p>
+            </div>
+            
+            <!-- Locket Widget -->
+            <div class="widget locket-widget" onclick="openApp('photos')">
+                <div class="locket-header">
+                    <i class="fa-solid fa-heart"></i>
+                    <span>Locket</span>
+                </div>
+                <div class="locket-img-container">
+                    <img src="locket1.jpg" alt="Locket photo">
+                </div>
+                <p class="locket-caption">ayghh</p>
+            </div>
+
+            <!-- Reminder Widget -->
+            <div class="widget reminder-widget">
+                <div class="reminder-header">
+                    <i class="fa-solid fa-bell"></i>
+                    <span>Reminders</span>
+                </div>
+                <p>work work work by rihanna</p>
+            </div>
+        </div>
+
+        <div class="passcode-section">
+            <p class="passcode-prompt">Enter Passcode</p>
+            <div class="passcode-dots">
+                <span class="dot" id="dot-0"></span>
+                <span class="dot" id="dot-1"></span>
+                <span class="dot" id="dot-2"></span>
+                <span class="dot" id="dot-3"></span>
+            </div>
+            <div class="keypad">
+                <button onclick="pressKey(1)">1</button>
+                <button onclick="pressKey(2)">2</button>
+                <button onclick="pressKey(3)">3</button>
+                <button onclick="pressKey(4)">4</button>
+                <button onclick="pressKey(5)">5</button>
+                <button onclick="pressKey(6)">6</button>
+                <button onclick="pressKey(7)">7</button>
+                <button onclick="pressKey(8)">8</button>
+                <button onclick="pressKey(9)">9</button>
+                <button class="empty"></button>
+                <button onclick="pressKey(0)">0</button>
+                <button onclick="deleteKey()"><i class="fa-solid fa-delete-left"></i></button>
+            </div>
+        </div>
+        <div class="swipe-up-bar" onclick="unlockPhone()"></div>
+    </div>
+
+    <!-- Home Screen -->
+    <div id="home-screen" class="screen">
+        <div class="status-bar dark">
+            <span class="home-time">1:28</span>
+            <div class="status-icons">
+                <i class="fa-solid fa-signal"></i>
+                <i class="fa-solid fa-wifi"></i>
+                <i class="fa-solid fa-battery-full"></i>
+            </div>
+        </div>
+        <div class="app-grid">
+            <div class="app-icon" onclick="openApp('notes')">
+                <div class="icon-bg yellow"><i class="fa-solid fa-note-sticky"></i></div>
+                <span>Notes</span>
+            </div>
+            <div class="app-icon" onclick="openApp('calendar')">
+                <div class="icon-bg red">
+                    <span class="cal-month">NOV</span>
+                    <span class="cal-day">7</span>
+                </div>
+                <span>Calendar</span>
+            </div>
+            <div class="app-icon" onclick="openApp('clock')">
+                <div class="icon-bg black"><i class="fa-solid fa-clock"></i></div>
+                <span>Clock</span>
+            </div>
+            <div class="app-icon" onclick="openApp('photos')">
+                <div class="icon-bg rainbow"><i class="fa-solid fa-image"></i></div>
+                <span>Photos</span>
+            </div>
+            <div class="app-icon" onclick="openApp('instagram')">
+                <div class="icon-bg insta"><i class="fa-brands fa-instagram"></i></div>
+                <span>Instagram</span>
+            </div>
+            <div class="app-icon" onclick="openApp('tiktok')">
+                <div class="icon-bg ttok"><i class="fa-brands fa-tiktok"></i></div>
+                <span>TikTok</span>
+            </div>
+            <div class="app-icon" onclick="openApp('twitter')">
+                <div class="icon-bg twitter"><i class="fa-brands fa-x-twitter"></i></div>
+                <span>X</span>
+            </div>
+            <div class="app-icon" onclick="openApp('messages')">
+                <div class="icon-bg green"><i class="fa-solid fa-message"></i></div>
+                <span>Messages</span>
+            </div>
+            <div class="app-icon" onclick="openApp('phone')">
+                <div class="icon-bg call"><i class="fa-solid fa-phone"></i></div>
+                <span>Phone</span>
+            </div>
+            <div class="app-icon" onclick="openApp('spotify')">
+                <div class="icon-bg spotify"><i class="fa-brands fa-spotify"></i></div>
+                <span>Spotify</span>
+            </div>
+        </div>
+        <div class="dock">
+            <div class="app-icon" onclick="openApp('messages')"><div class="icon-bg green"><i class="fa-solid fa-message"></i></div></div>
+            <div class="app-icon" onclick="openApp('phone')"><div class="icon-bg call"><i class="fa-solid fa-phone"></i></div></div>
+            <div class="app-icon" onclick="openApp('safari')"><div class="icon-bg safari"><i class="fa-solid fa-compass"></i></div></div>
+            <div class="app-icon" onclick="openApp('spotify')"><div class="icon-bg spotify"><i class="fa-brands fa-spotify"></i></div></div>
+        </div>
+        <div class="home-indicator" onclick="goHome()"></div>
+    </div>
+
+    <!-- App: Messages -->
+    <div id="app-messages" class="app-container">
+        <div class="app-header">
+            <button class="back-btn" onclick="closeApp()"><i class="fa-solid fa-chevron-left"></i> Back</button>
+            <h2>Messages</h2>
+        </div>
+        <div class="chat-list" onclick="openChat('dayan')">
+            <div class="chat-avatar">D</div>
+            <div class="chat-preview-info">
+                <h3>Dayan</h3>
+                <p>same ats shahwhd</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="chat-dayan" class="app-container sub-app">
+        <div class="app-header">
+            <button class="back-btn" onclick="closeChat()"><i class="fa-solid fa-chevron-left"></i></button>
+            <div class="chat-title-info">
+                <div class="small-avatar">D</div>
+                <span>Dayan</span>
+            </div>
+        </div>
+        <div class="chat-messages">
+            <div class="message-bubble outgoing">
+                <p>gusto ko na mag boyfriend</p>
+            </div>
+            <div class="message-bubble incoming">
+                <p>same ats shahwhd</p>
+            </div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" placeholder="iMessage" disabled>
+            <button><i class="fa-solid fa-arrow-up"></i></button>
+        </div>
+    </div>
+
+    <!-- App: Notes -->
+    <div id="app-notes" class="app-container">
+        <div class="app-header">
+            <button class="back-btn" onclick="closeApp()"><i class="fa-solid fa-chevron-left"></i> Folders</button>
+            <h2>Notes</h2>
+        </div>
+        <div class="notes-list">
+            <div class="note-item">
+                <h3>Shift Checklist</h3>
+                <p>1. Check headset connection<br>2. Review queue updates<br>3. Hydrate & prep coffee ☕</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- App: Calendar -->
+    <div id="app-calendar" class="app-container">
+        <div class="app-header">
+            <button class="back-btn" onclick="closeApp()"><i class="fa-solid fa-chevron-left"></i> Today</button>
+            <h2>Calendar</h2>
+        </div>
+        <div class="calendar-events-list">
+            <div class="cal-event-card">
+                <span class="event-date">Dec 24, 2026</span>
+                <h4>Christmas Eve</h4>
+            </div>
+            <div class="cal-event-card">
+                <span class="event-date">Dec 25, 2026</span>
+                <h4>Christmas Day</h4>
+            </div>
+            <div class="cal-event-card">
+                <span class="event-date">Dec 31, 2026</span>
+                <h4>New Year’s Eve</h4>
+            </div>
+            <div class="cal-event-card">
+                <span class="event-date">Jan 1, 2027</span>
+                <h4>New Year's Day</h4>
+                <p>birthday ng asawa ng pinakamagandang babae</p>
+            </div>
+            <div class="cal-event-card">
+                <span class="event-date">Jan 11, 2027</span>
+                <h4>Birthday</h4>
+                <p>birthday ng pinakamagandang babae</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- App: Photos -->
+    <div id="app-photos" class="app-container">
+        <div class="app-header">
+            <button class="back-btn" onclick="closeApp()"><i class="fa-solid fa-chevron-left"></i> Albums</button>
+            <h2>Photos</h2>
+        </div>
+        <div class="photos-grid">
+            <img src="svt2.jpg" alt="Testing photo">
+        </div>
+    </div>
+
+    <!-- App: Instagram -->
+    <div id="app-instagram" class="app-container">
+        <div class="app-header">
+            <button class="back-btn" onclick="closeApp()"><i class="fa-solid fa-chevron-left"></i></button>
+            <h2>lieunoiael</h2>
+        </div>
+        <div class="insta-profile">
+            <div class="insta-top-row">
+                <img src="igpfp1.jpg" alt="Profile Picture" class="insta-pfp">
+                <div class="insta-stats">
+                    <div><strong>0</strong><span>Posts</span></div>
+                    <div><strong>143</strong><span>Followers</span></div>
+                    <div><strong>128</strong><span>Following</span></div>
+                </div>
+            </div>
+            <div class="insta-bio">
+                <strong>Liel</strong>
+                <p>rêveur</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- App: Generic Placeholders -->
+    <div id="app-clock" class="app-container"><div class="app-header"><button class="back-btn" onclick="closeApp()">Back</button><h2>Clock</h2></div><p class="placeholder-text">Alarm list is currently empty.</p></div>
+    <div id="app-tiktok" class="app-container"><div class="app-header"><button class="back-btn" onclick="closeApp()">Back</button><h2>TikTok</h2></div><p class="placeholder-text">Loading Liel's feed...</p></div>
+    <div id="app-twitter" class="app-container"><div class="app-header"><button class="back-btn" onclick="closeApp()">Back</button><h2>X</h2></div><p class="placeholder-text">No tweets found.</p></div>
+    <div id="app-phone" class="app-container"><div class="app-header"><button class="back-btn" onclick="closeApp()">Back</button><h2>Phone</h2></div><p class="placeholder-text">No recent call logs.</p></div>
+    <div id="app-spotify" class="app-container"><div class="app-header"><button class="back-btn" onclick="closeApp()">Back</button><h2>Spotify</h2></div><p class="placeholder-text">Playlist loading soon...</p></div>
+    <div id="app-safari" class="app-container"><div class="app-header"><button class="back-btn" onclick="closeApp()">Back</button><h2>Safari</h2></div><p class="placeholder-text">google.com</p></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
