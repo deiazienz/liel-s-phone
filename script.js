@@ -25,6 +25,32 @@ function updateClock() {
 setInterval(updateClock, 1000);
 updateClock();
 
+// Swipe-up & click unlock handlers
+let startY = 0;
+const lockScreen = document.getElementById('lock-screen');
+
+if (lockScreen) {
+    lockScreen.addEventListener('touchstart', (e) => {
+        startY = e.touches[0].clientY;
+    });
+
+    lockScreen.addEventListener('touchend', (e) => {
+        let endY = e.changedTouches[0].clientY;
+        // If dragged up by more than 50 pixels, unlock
+        if (startY - endY > 50) {
+            unlockPhone();
+        }
+    });
+
+    // Fallback click/tap on lock screen (makes desktop testing easy)
+    lockScreen.addEventListener('click', (e) => {
+        // Only trigger if they didn't click the passcode keypad buttons
+        if (!e.target.closest('.keypad') && !e.target.closest('.passcode-section')) {
+            unlockPhone();
+        }
+    });
+}
+
 function pressKey(num) {
     if (enteredPasscode.length < 4) {
         enteredPasscode += num.toString();
@@ -44,10 +70,12 @@ function deleteKey() {
 function updatePasscodeDots() {
     for (let i = 0; i < 4; i++) {
         const dot = document.getElementById(`dot-${i}`);
-        if (i < enteredPasscode.length) {
-            dot.classList.add('filled');
-        } else {
-            dot.classList.remove('filled');
+        if (dot) {
+            if (i < enteredPasscode.length) {
+                dot.classList.add('filled');
+            } else {
+                dot.classList.remove('filled');
+            }
         }
     }
 }
@@ -65,8 +93,10 @@ function checkPasscode() {
 }
 
 function unlockPhone() {
-    document.getElementById('lock-screen').classList.remove('active');
-    document.getElementById('home-screen').classList.add('active');
+    const lock = document.getElementById('lock-screen');
+    const home = document.getElementById('home-screen');
+    if (lock) lock.classList.remove('active');
+    if (home) home.classList.add('active');
     enteredPasscode = "";
     updatePasscodeDots();
 }
@@ -75,7 +105,8 @@ function goHome() {
     document.querySelectorAll('.app-container').forEach(app => {
         app.style.display = 'none';
     });
-    document.getElementById('home-screen').classList.add('active');
+    const home = document.getElementById('home-screen');
+    if (home) home.classList.add('active');
 }
 
 function openApp(appName) {
